@@ -7,7 +7,7 @@ import { UnauthorizedException } from '@nestjs/common';
 export class TokenValidationMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const { headers } = req;
-    const token = headers['authorization'];
+    const token = headers['token'];
 
     // 检查请求是否包含 Token
     if (!token) {

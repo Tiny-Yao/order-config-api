@@ -9,6 +9,7 @@ import { OrderController } from './order/order.controller';
 import { BotController } from './bot/bot.controller';
 import { BotService } from './bot/bot.service';
 import { AppController } from './app/app.controller';
+import * as cors from 'cors';
 
 @Module({
   imports: [],
@@ -18,6 +19,8 @@ import { AppController } from './app/app.controller';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
+      .apply(cors())
+      .forRoutes('*')
       .apply(TokenValidationMiddleware)
       .exclude('/api/user/login', '/api/ping') // 排除 /login 接口
       .forRoutes('*'); // 对所有路由应用中间件

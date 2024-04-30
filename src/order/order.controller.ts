@@ -32,7 +32,7 @@ export class OrderController {
     try {
       return await this.userService.updateConfig(updatedConfig);
     } catch (error) {
-      throw new HttpException('新增配置失败', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException('更新配置失败', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

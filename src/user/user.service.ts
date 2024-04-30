@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as fs from 'fs';
@@ -13,7 +13,11 @@ export class UserService {
     const { password, timestamp } = loginUser;
     try {
       if (!process.env.FILE_PASSWORD) {
-        return '[login]密码文件不存在，请检查';
+        return {
+          code: 200,
+          data: null,
+          message: '[login]密码文件不存在，请检查',
+        };
       }
       const storedPassword = fs
         .readFileSync(process.env.FILE_PASSWORD, 'utf8')
@@ -24,9 +28,18 @@ export class UserService {
       );
       // console.log('hashedPassword:', hashedPassword);
       if (storedPassword !== hashedPassword) {
-        return '密码错误';
+        return {
+          code: 200,
+          data: null,
+          message: '密码错误',
+        };
       } else {
-        return this.globalService.generateToken(password, timestamp);
+        return {
+          data: {
+            token: this.globalService.generateToken(password, timestamp),
+          },
+          message: '登录成功',
+        };
       }
     } catch (error) {
       throw new HttpException(
@@ -40,7 +53,11 @@ export class UserService {
     const { old_password, new_password } = updateUser;
     try {
       if (!process.env.FILE_PASSWORD) {
-        return '[reset]密码文件不存在，请检查';
+        return {
+          code: 200,
+          data: null,
+          message: '[reset]密码文件不存在，请检查',
+        };
       }
       const storedPassword = fs
         .readFileSync(process.env.FILE_PASSWORD, 'utf8')
@@ -52,7 +69,11 @@ export class UserService {
         this.globalService.decrypt(new_password),
       );
       if (storedPassword !== oldHashedPassword) {
-        return '旧密码错误';
+        return {
+          code: 200,
+          data: null,
+          message: '旧密码错误',
+        };
       } else {
         try {
           fs.writeFileSync(
@@ -60,7 +81,11 @@ export class UserService {
             newHashedPassword,
             'utf8',
           );
-          return '密码修改成功';
+          return {
+            code: 200,
+            data: true,
+            message: '密码修改成功',
+          };
         } catch (error) {
           throw new HttpException(
             '服务器内部错误',

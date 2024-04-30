@@ -1,8 +1,7 @@
-// response.interceptor.ts
 import {
+  ExecutionContext,
   Injectable,
   NestInterceptor,
-  ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
@@ -15,8 +14,9 @@ export class ResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => ({
         code: 200,
-        message: data === null ? '操作失败' : '操作成功',
-        data: data,
+        status: 'success',
+        message: '请求成功',
+        ...data,
       })),
     );
   }
