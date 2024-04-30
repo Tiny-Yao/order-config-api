@@ -17,67 +17,77 @@ export class UpdateBotDto {
    * 交易类型 spot-现货 usdm-U本位合约 coinm-币本位合约
    */
   @IsString()
+  @IsOptional()
   exchange_type: string;
 
   /**
    * 交易对 BTC/USDT或者EH/USDT
    */
   @IsString()
+  @IsOptional()
   symbol: string;
 
   /**
    * 对接类型 strategy-智能策略对接 indicator-手动指标对接
    */
   @IsString()
+  @IsOptional()
   docking_type: string;
 
   /**
    * 方向 long-开多 short-开空 both-平仓
    */
-  @IsOptional()
   @IsString()
+  @IsOptional()
   direction: string;
 
   /**
    * 保证金模式 run-逐仓 all-全仓
    */
   @IsString()
+  @IsOptional()
   earnest_money_mode: string;
 
   /**
    * 杠杆倍数
    */
   @IsNumber()
+  @IsOptional()
   leverage: number;
 
   /**
    * 订单类型  limit-限价 market-市价 both-限价开仓 + 市价平仓
    */
   @IsString()
+  @IsOptional()
   order_type: string;
 
   /**
    * 交易单位 usdt-USDT数量 coin-币数量 percent-资金量
    */
   @IsString()
+  @IsOptional()
   exchange_unit: string;
 
   /**
    * 数量
    */
   @IsNumber()
+  @IsOptional()
   quantity: number;
 
   /**
    * 委托价
    */
   @IsNumber()
+  @IsOptional()
   entrust_price: number;
 
   /**
    * 止盈止损 null-不设置 move-移动止盈止损 normal-固定止盈止损
    */
   @IsString()
+  @IsOptional()
   stop_profit_or_loss: string;
 
   /**
@@ -112,6 +122,7 @@ export class UpdateBotDto {
    * 开仓保护
    */
   @IsString()
+  @IsOptional()
   open_position_protect: string;
 
   /**
@@ -125,23 +136,27 @@ export class UpdateBotDto {
    * 账户最低预留金额
    */
   @IsNumber()
+  @IsOptional()
   min_amount: number;
 
   /**
    * 开仓方向 both-双向 long-只做多 short-只做空
    */
   @IsString()
+  @IsOptional()
   open_position_direction: string;
 
   /**
    * 开仓比例
    */
   @IsNumber()
+  @IsOptional()
   open_position_scale: number;
 
   /**
    * 延时
    */
   @IsNumber()
+  @IsOptional()
   delay_time: number;
 }
